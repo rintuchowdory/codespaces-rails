@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/api"
+    schedule:
+      interval: "monthly"
+    groups:
+      ruby-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "npm"
+    directory: "/web"
+    schedule:
+      interval: "monthly"
+    groups:
+      npm-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns: ["*"]
