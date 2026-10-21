@@ -2,10 +2,15 @@
 
 Two independently deployable pieces:
 
-- **`api/`** — Rails 7 API-only app, PostgreSQL, deploys to Render or Railway
+- **`api/`** — Rails 8.1 API-only app, PostgreSQL, deploys to Render or Railway
   (both support real Ruby processes + a DB; GitHub Pages/Vercel do not).
 - **`web/`** — Vite + React + TypeScript frontend, deploys to GitHub Pages
-  and/or Vercel. It talks to the API over `VITE_API_BASE_URL`.
+  and/or Vercel. It is a landing page + live API health demo, and talks to the API over `VITE_API_BASE_URL`.
+
+## Requirements
+
+- **Ruby 3.4.11** (for the API; see `api/.ruby-version`)
+- **Node 20.19+** (Node 22 recommended; Vite 7 requires ≥ 20.19)
 
 ## Local setup
 
@@ -22,6 +27,16 @@ npm install
 npm run dev         # http://localhost:5173
 ```
 
+## Testing
+
+```bash
+# API request specs (CI runs the same on every push touching api/)
+cd api && bundle exec rspec
+
+# Frontend type-check + production build
+cd web && npm run build
+```
+
 ## Deploying the API
 
 **Render**: import this repo as a Blueprint (`render.yaml` at repo root
@@ -35,7 +50,7 @@ root directory to `api/`. Add a Postgres plugin and Railway injects
 ## Deploying the frontend
 
 **GitHub Pages**: `.github/workflows/frontend-pages.yml` builds and
-deploys `web/` on every push to `main`. Set the `API_BASE_URL`
+deploys `web/` on every push to `master`. Set the `API_BASE_URL`
 repository variable (Settings → Secrets and variables → Actions →
 Variables) to your live API URL.
 

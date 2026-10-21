@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 
 module CodespacesRailsApi
   class Application < Rails::Application
-    config.load_defaults 7.1
+    config.load_defaults 8.1
 
     # API-only mode: no views, cookies, or sessions middleware.
     config.api_only = true
@@ -20,7 +20,8 @@ module CodespacesRailsApi
       allow do
         origins [
           ENV.fetch("FRONTEND_ORIGIN", "http://localhost:5173"),
-          "https://rintu-chowdory.github.io"
+          "https://rintu-chowdory.github.io",
+          "https://rintuchowdory.github.io"
         ]
         resource "*",
           headers: :any,
